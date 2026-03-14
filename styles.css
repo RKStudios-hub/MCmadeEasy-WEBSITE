@@ -79,9 +79,9 @@ a {
 
 .navbar.scrolled {
     padding: 14px 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 .navbar .container {
@@ -262,8 +262,8 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 280px;
-    height: 280px;
+    width: 350px;
+    height: 350px;
     background: var(--accent-purple);
     border-radius: 50%;
     filter: blur(80px);
@@ -275,6 +275,16 @@ a {
 @keyframes glow-pulse {
     0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
     50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 550px;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1;
 }
 
 .hero-card {
@@ -502,12 +512,6 @@ section {
     align-items: center;
     justify-content: center;
     scroll-snap-align: center;
-    transition: all 0.3s ease;
-}
-
-.screenshot:hover {
-    border-color: var(--accent-purple);
-    transform: scale(1.02);
 }
 
 .screenshot-placeholder {
