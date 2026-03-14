@@ -100,21 +100,21 @@ function updateScrollbar() {
         scrollPercent = scrollTop / docHeight;
     }
     
-    const minHeight = 20;
-    const maxHeight = 150;
-    const newHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
+    // Calculate thumb height: smaller at top, larger at bottom
+    const minHeight = 40;
+    const maxHeight = 180;
+    const thumbHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
     
-    const style = document.createElement('style');
-    style.id = 'dynamic-scrollbar';
-    style.innerHTML = `
-        ::-webkit-scrollbar-thumb {
-            height: ${newHeight}px !important;
-        }
-    `;
+    // Calculate thumb position
+    const trackHeight = window.innerHeight - thumbHeight;
+    const thumbTop = scrollPercent * trackHeight;
     
-    const existing = document.getElementById('dynamic-scrollbar');
-    if (existing) existing.remove();
-    document.head.appendChild(style);
+    // Update custom scrollbar
+    const thumb = document.querySelector('.scrollbar-thumb');
+    if (thumb) {
+        thumb.style.height = thumbHeight + 'px';
+        thumb.style.top = thumbTop + 'px';
+    }
 }
 
 window.addEventListener('scroll', updateScrollbar);
