@@ -90,6 +90,36 @@ function initScrollAnimations() {
     });
 }
 
+// Dynamic scrollbar
+function updateScrollbar() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    let scrollPercent = 0;
+    
+    if (docHeight > 0) {
+        scrollPercent = scrollTop / docHeight;
+    }
+    
+    const minHeight = 20;
+    const maxHeight = 150;
+    const newHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
+    
+    const style = document.createElement('style');
+    style.id = 'dynamic-scrollbar';
+    style.innerHTML = `
+        ::-webkit-scrollbar-thumb {
+            height: ${newHeight}px !important;
+        }
+    `;
+    
+    const existing = document.getElementById('dynamic-scrollbar');
+    if (existing) existing.remove();
+    document.head.appendChild(style);
+}
+
+window.addEventListener('scroll', updateScrollbar);
+window.addEventListener('load', updateScrollbar);
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     handleNavbarScroll();
@@ -97,4 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
     initCarousel();
     initSmoothScroll();
     initScrollAnimations();
+    updateScrollbar();
+});
+
+// Dynamic scrollbar
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = Math.min(scrollTop / (docHeight || 1), 1);
+    
+    // Scrollbar thumb height: small at top, larger at bottom
+    const minHeight = 30; // pixels at top
+    const maxHeight = 150; // pixels at bottom
+    const newHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
+    
+    document.documentElement.style.setProperty('--scrollbar-height', newHeight + 'px');
 });

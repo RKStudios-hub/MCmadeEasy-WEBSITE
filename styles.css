@@ -10,6 +10,25 @@
     --border-color: rgba(255, 255, 255, 0.1);
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
+    --scrollbar-height: 30px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-purple);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9333ea;
 }
 
 /* Scroll Animations - Base */
@@ -493,18 +512,18 @@ section {
 .carousel-track {
     display: flex;
     gap: 20px;
-    overflow-x: auto;
+    overflow-x: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
-.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track::-webkit-scrollbar { 
+    display: none; 
+}
 
 .screenshot {
-    min-width: calc(50% - 10px);
-    aspect-ratio: 16/10;
+    min-width: 70%;
+    aspect-ratio: 16/9;
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 16px;
@@ -512,6 +531,7 @@ section {
     align-items: center;
     justify-content: center;
     scroll-snap-align: center;
+    margin: 0 15%;
 }
 
 .screenshot-placeholder {
