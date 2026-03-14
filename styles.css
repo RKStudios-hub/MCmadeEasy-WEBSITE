@@ -15,6 +15,7 @@
 /* Hide default scrollbar */
 html {
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
@@ -70,6 +71,95 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #9333ea;
+}
+
+/* Random Glow Orbs */
+.glow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: float-orb 20s ease-in-out infinite;
+}
+
+.glow-orb:nth-child(1) {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-purple);
+    top: 10%;
+    left: -100px;
+    animation-delay: 0s;
+    animation-duration: 25s;
+}
+
+.glow-orb:nth-child(2) {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-purple);
+    top: 50%;
+    right: -50px;
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+.glow-orb:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    background: var(--accent-cyan);
+    bottom: 20%;
+    left: 20%;
+    animation-delay: -10s;
+    animation-duration: 28s;
+}
+
+.glow-orb:nth-child(4) {
+    width: 350px;
+    height: 350px;
+    background: var(--accent-purple);
+    top: 30%;
+    right: 20%;
+    animation-delay: -15s;
+    animation-duration: 22s;
+}
+
+.glow-orb:nth-child(5) {
+    width: 200px;
+    height: 200px;
+    background: var(--accent-cyan);
+    bottom: 10%;
+    right: 30%;
+    animation-delay: -8s;
+    animation-duration: 30s;
+}
+
+@keyframes float-orb {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.15;
+    }
+    25% {
+        transform: translate(30px, -50px) scale(1.1);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translate(-20px, 30px) scale(0.9);
+        opacity: 0.1;
+    }
+    75% {
+        transform: translate(40px, 20px) scale(1.05);
+        opacity: 0.18;
+    }
 }
 
 /* Scroll Animations - Base */
@@ -542,6 +632,13 @@ section {
 /* Screenshots */
 .screenshots {
     background: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.screenshots .container {
+    position: relative;
+    z-index: 1;
 }
 
 .carousel {
