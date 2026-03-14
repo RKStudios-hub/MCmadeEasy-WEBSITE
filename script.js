@@ -72,10 +72,29 @@ function initSmoothScroll() {
     });
 }
 
+// Scroll animations
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const elements = document.querySelectorAll('.feature-card, .step, .screenshot, .stat, .section-header, .download-content, .about-content, .about-stats');
+    
+    elements.forEach(el => {
+        el.classList.add('scroll-animate');
+        observer.observe(el);
+    });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     handleNavbarScroll();
     initMobileMenu();
     initCarousel();
     initSmoothScroll();
+    initScrollAnimations();
 });
