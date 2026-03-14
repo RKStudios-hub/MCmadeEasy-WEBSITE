@@ -18,6 +18,34 @@ function initMobileMenu() {
     }
 }
 
+// Theme toggle
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    
+    // Check saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        
+        if (document.body.classList.contains('light-theme')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'light');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+}
+
 // Carousel functionality
 function initCarousel() {
     const track = document.querySelector('.carousel-track');
@@ -124,6 +152,7 @@ window.addEventListener('load', updateScrollbar);
 document.addEventListener('DOMContentLoaded', () => {
     handleNavbarScroll();
     initMobileMenu();
+    initThemeToggle();
     initCarousel();
     initSmoothScroll();
     initScrollAnimations();
