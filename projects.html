@@ -13,13 +13,13 @@
         .projects-page {
             min-height: 100vh;
             padding: 140px 24px 80px;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         .projects-header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 60px;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease forwards;
@@ -34,10 +34,14 @@
         
         .projects-header h1 {
             font-family: var(--font-display);
-            font-size: 48px;
+            font-size: 52px;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .projects-header .subtitle {
@@ -47,18 +51,32 @@
         
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
         }
         
         .project-card {
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
+            border-radius: 20px;
+            padding: 36px;
+            transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(30px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), #22d3ee);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .project-card.visible {
@@ -67,80 +85,132 @@
         }
         
         .project-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-purple);
-            box-shadow: 0 20px 50px rgba(168, 85, 247, 0.15);
+            transform: translateY(-12px);
+            border-color: transparent;
+            box-shadow: 0 25px 60px rgba(168, 85, 247, 0.2);
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
         }
         
         body.light-theme .project-card:hover {
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
         }
         
-        .project-icon {
-            width: 56px;
-            height: 56px;
-            background: var(--accent-purple);
-            border-radius: 12px;
+        .project-thumb {
+            width: calc(100% + 72px);
+            margin-left: -36px;
+            margin-right: -36px;
+            margin-top: -36px;
+            height: 220px;
+            border-radius: 20px 20px 0 0;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .project-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 30%, var(--bg-tertiary) 80%);
+        }
+        
+        .project-thumb.server { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+        .project-thumb.mods { background: linear-gradient(135deg, #2d132c 0%, #801336 50%, #c72c41 100%); }
+        .project-thumb.bot { background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3d7ab5 100%); }
+        .project-thumb.stats { background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%); }
+        .project-thumb.backup { background: linear-gradient(135deg, #10002b 0%, #240046 50%, #3c096c 100%); }
+        .project-thumb.profiles { background: linear-gradient(135deg, #184e77 0%, #1e6091 50%, #1a759f 100%); }
+        
+        .project-thumb .project-icon {
+            position: absolute;
+            bottom: 20px;
+            left: 24px;
+            z-index: 2;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--accent-purple), #9333ea);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 28px;
             color: white;
-            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+            margin-bottom: 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover .project-thumb .project-icon {
+            transform: scale(1.1) rotate(5deg);
         }
         
         .project-card h3 {
             font-family: var(--font-display);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         
         .project-card .project-desc {
             font-size: 15px;
             color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
         
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 24px;
         }
         
         .project-tag {
             font-size: 12px;
-            padding: 4px 12px;
-            background: rgba(168, 85, 247, 0.1);
+            padding: 6px 14px;
+            background: rgba(168, 85, 247, 0.15);
             color: var(--accent-purple);
             border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover .project-tag {
+            background: rgba(168, 85, 247, 0.25);
         }
         
         .project-link {
             color: var(--accent-purple);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: gap 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .project-link:hover {
-            gap: 12px;
+            gap: 14px;
+        }
+        
+        .project-link i {
+            font-size: 14px;
         }
         
         .coming-soon {
             text-align: center;
-            padding: 60px 20px;
-            margin-top: 40px;
+            padding: 80px 40px;
+            margin-top: 60px;
             background: var(--bg-tertiary);
-            border: 1px dashed var(--border-color);
-            border-radius: 16px;
+            border: 2px dashed var(--border-color);
+            border-radius: 24px;
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease;
@@ -151,19 +221,57 @@
             transform: translateY(0);
         }
         
+        .coming-soon-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--accent-purple);
+            margin: 0 auto 24px;
+        }
+        
         .coming-soon h3 {
             font-family: var(--font-display);
-            font-size: 24px;
+            font-size: 28px;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         
         .coming-soon p {
             color: var(--text-muted);
+            font-size: 16px;
+        }
+        
+        .project-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .project-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .project-stat i {
+            color: var(--accent-purple);
         }
         
         body.light-theme .project-tag {
-            background: rgba(168, 85, 247, 0.15);
+            background: rgba(168, 85, 247, 0.12);
+        }
+        
+        body.light-theme .project-icon {
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.2);
         }
     </style>
 </head>
@@ -210,11 +318,13 @@
         
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-server"></i>
+                <div class="project-thumb server">
+                    <div class="project-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
                 </div>
                 <h3>ServerManager Pro</h3>
-                <p class="project-desc">A comprehensive game server management panel for hosting multiple game servers with ease.</p>
+                <p class="project-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="project-tags">
                     <span class="project-tag">Game Hosting</span>
                     <span class="project-tag">Web Panel</span>
@@ -225,11 +335,13 @@
             </div>
             
             <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-plug"></i>
+                <div class="project-thumb mods">
+                    <div class="project-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
                 </div>
                 <h3>Modpack Installer</h3>
-                <p class="project-desc">One-click modpack installer for Minecraft. Supports CurseForge, Modrinth, and custom packs.</p>
+                <p class="project-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="project-tags">
                     <span class="project-tag">Minecraft</span>
                     <span class="project-tag">Modpacks</span>
@@ -240,11 +352,13 @@
             </div>
             
             <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-headset"></i>
+                <div class="project-thumb bot">
+                    <div class="project-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
                 </div>
                 <h3>BotAssistant</h3>
-                <p class="project-desc">Discord bot for server management with auto-moderation, leveling, and custom commands.</p>
+                <p class="project-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="project-tags">
                     <span class="project-tag">Discord</span>
                     <span class="project-tag">Bot</span>
@@ -255,11 +369,13 @@
             </div>
             
             <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-chart-line"></i>
+                <div class="project-thumb stats">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
                 </div>
                 <h3>ServerStats</h3>
-                <p class="project-desc">Real-time server monitoring and analytics dashboard with beautiful visualizations.</p>
+                <p class="project-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="project-tags">
                     <span class="project-tag">Analytics</span>
                     <span class="project-tag">Monitoring</span>
@@ -270,11 +386,13 @@
             </div>
             
             <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-cloud"></i>
+                <div class="project-thumb backup">
+                    <div class="project-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
                 </div>
                 <h3>CloudBackup</h3>
-                <p class="project-desc">Automated cloud backup solution for game servers with version history and restore.</p>
+                <p class="project-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="project-tags">
                     <span class="project-tag">Backup</span>
                     <span class="project-tag">Cloud</span>
@@ -285,11 +403,13 @@
             </div>
             
             <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-users"></i>
+                <div class="project-thumb profiles">
+                    <div class="project-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
                 </div>
                 <h3>PlayerProfiles</h3>
-                <p class="project-desc">Advanced player profile system with stats, achievements, and cosmetic unlocks.</p>
+                <p class="project-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 <div class="project-tags">
                     <span class="project-tag">Minecraft</span>
                     <span class="project-tag">Stats</span>
