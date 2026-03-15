@@ -65,6 +65,10 @@
             transition: all 0.3s ease;
         }
         
+        .faq-search input:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+        
         .faq-search input:focus {
             outline: none;
             border-color: var(--accent-purple);
@@ -126,7 +130,13 @@
         }
         
         .faq-item:hover {
-            border-color: rgba(168, 85, 247, 0.3);
+            border-color: rgba(168, 85, 247, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.15);
+        }
+        
+        body.light-theme .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
         
         .faq-question {
@@ -201,7 +211,16 @@
             border-radius: 12px;
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.6s ease 0.3s;
+            transition: all 0.6s ease 0.3s, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        
+        .faq-contact:hover {
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        body.light-theme .faq-contact:hover {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
         
         .faq-contact.visible {
@@ -238,7 +257,7 @@
         }
     </style>
 </head>
-<body>
+<body class="inner-page">
     <div class="glow-container">
         <div class="glow-orb"></div>
         <div class="glow-orb"></div>
@@ -258,10 +277,10 @@
                 <span>MCmadeEasy</span>
             </a>
             <ul class="nav-links">
-                <li><a href="index.html#features">Features</a></li>
-                <li><a href="index.html#how-it-works">How It Works</a></li>
-                <li><a href="index.html#screenshots">Screenshots</a></li>
-                <li><a href="download.html" class="nav-cta">Download</a></li>
+                <li><a href="index.html#getting-started">Getting Started</a></li>
+                <li><a href="download.html">Download</a></li>
+                <li><a href="faq.html" class="nav-cta">FAQ</a></li>
+                <li><a href="projects.html">Other Projects</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle">
                 <i class="fas fa-moon"></i>

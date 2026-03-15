@@ -276,6 +276,16 @@ a {
     transition: all 0.5s ease;
 }
 
+body.inner-page .navbar {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+body.inner-page.light-theme .navbar {
+    background: rgba(255, 255, 255, 0.9);
+}
+
 .navbar.scrolled {
     padding: 14px 0;
     background: rgba(0, 0, 0, 0.3);
@@ -728,8 +738,8 @@ section {
     line-height: 1.6;
 }
 
-/* How It Works */
-.how-it-works {
+/* Getting Started */
+.getting-started {
     background: var(--bg-primary);
 }
 

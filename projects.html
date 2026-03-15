@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Projects — MCmadeEasy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .projects-page {
+            min-height: 100vh;
+            padding: 140px 24px 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .projects-header {
+            text-align: center;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .projects-header h1 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .projects-header .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        
+        .project-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 20px 50px rgba(168, 85, 247, 0.15);
+        }
+        
+        body.light-theme .project-card:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-purple);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .project-card h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .project-card .project-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .project-tag {
+            font-size: 12px;
+            padding: 4px 12px;
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--accent-purple);
+            border-radius: 20px;
+        }
+        
+        .project-link {
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s ease;
+        }
+        
+        .project-link:hover {
+            gap: 12px;
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 40px;
+            background: var(--bg-tertiary);
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .coming-soon.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .coming-soon h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .coming-soon p {
+            color: var(--text-muted);
+        }
+        
+        body.light-theme .project-tag {
+            background: rgba(168, 85, 247, 0.15);
+        }
+    </style>
+</head>
+<body class="inner-page">
+    <div class="glow-container">
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+    </div>
+    <div class="custom-scrollbar">
+        <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/Logo.png" alt="MCmadeEasy" class="logo-img">
+                <span>MCmadeEasy</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#getting-started">Getting Started</a></li>
+                <li><a href="download.html">Download</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="projects.html" class="nav-cta">Other Projects</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="projects-page">
+        <div class="projects-header">
+            <h1>Other Projects</h1>
+            <p class="subtitle">Check out other projects from the MCmadeEasy team</p>
+        </div>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3>ServerManager Pro</h3>
+                <p class="project-desc">A comprehensive game server management panel for hosting multiple game servers with ease.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Game Hosting</span>
+                    <span class="project-tag">Web Panel</span>
+                </div>
+                <a href="#" class="project-link">
+                    View Project <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3>Modpack Installer</h3>
+                <p class="project-desc">One-click modpack installer for Minecraft. Supports CurseForge, Modrinth, and custom packs.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Minecraft</span>
+                    <span class="project-tag">Modpacks</span>
+                </div>
+                <a href="#" class="project-link">
+                    View Project <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>BotAssistant</h3>
+                <p class="project-desc">Discord bot for server management with auto-moderation, leveling, and custom commands.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Discord</span>
+                    <span class="project-tag">Bot</span>
+                </div>
+                <a href="#" class="project-link">
+                    View Project <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>ServerStats</h3>
+                <p class="project-desc">Real-time server monitoring and analytics dashboard with beautiful visualizations.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Analytics</span>
+                    <span class="project-tag">Monitoring</span>
+                </div>
+                <a href="#" class="project-link">
+                    View Project <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>CloudBackup</h3>
+                <p class="project-desc">Automated cloud backup solution for game servers with version history and restore.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Backup</span>
+                    <span class="project-tag">Cloud</span>
+                </div>
+                <a href="#" class="project-link">
+                    View Project <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>PlayerProfiles</h3>
+                <p class="project-desc">Advanced player profile system with stats, achievements, and cosmetic unlocks.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Minecraft</span>
+                    <span class="project-tag">Stats</span>
+                </div>
+                <a href="#" class="project-link">
+                    View Project <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="coming-soon">
+            <h3>More Coming Soon</h3>
+            <p>We're always working on new exciting projects. Stay tuned!</p>
+        </div>
+    </div>
+    
+    <script>
+        // Scroll animations
+        const projectCards = document.querySelectorAll('.project-card');
+        const comingSoon = document.querySelector('.coming-soon');
+        
+        function animateOnScroll() {
+            const triggerPoint = window.innerHeight * 0.9;
+            
+            projectCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+            
+            if (comingSoon) {
+                const rect = comingSoon.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    comingSoon.classList.add('visible');
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll();
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const icon = themeToggle.querySelector('i');
+                if (document.body.classList.contains('light-theme')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-theme');
+                themeToggle.querySelector('i').classList.remove('fa-moon');
+                themeToggle.querySelector('i').classList.add('fa-sun');
+            }
+        }
+        
+        // Custom scrollbar
+        function updateScrollbar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            
+            if (docHeight > 0) {
+                scrollPercent = scrollTop / docHeight;
+            }
+            
+            const minHeight = 40;
+            const maxHeight = 180;
+            const thumbHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
+            
+            const trackHeight = window.innerHeight - thumbHeight;
+            const thumbTop = scrollPercent * trackHeight;
+            
+            const thumb = document.querySelector('.scrollbar-thumb');
+            if (thumb) {
+                thumb.style.height = thumbHeight + 'px';
+                thumb.style.top = thumbTop + 'px';
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('load', updateScrollbar);
+    </script>
+</body>
+</html>
