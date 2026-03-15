@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download — MCmadeEasy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .download-page {
+            min-height: 100vh;
+            padding: 140px 24px 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .download-header {
+            text-align: center;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .download-header h1 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .download-header .subtitle {
+            font-size: 18px;
+            color: var(--accent-purple);
+            font-weight: 500;
+        }
+        
+        .version-info {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+        
+        .version-info .current {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .version-info .badge {
+            background: var(--accent-purple);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .version-info .version-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .version-info .version-text strong {
+            color: var(--text-primary);
+        }
+        
+        .os-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+        }
+        
+        .os-tab {
+            padding: 16px 32px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+        
+        .os-tab:hover {
+            color: var(--text-primary);
+        }
+        
+        .os-tab.active {
+            color: var(--accent-purple);
+            border-bottom-color: var(--accent-purple);
+        }
+        
+        .os-tab i {
+            margin-right: 8px;
+        }
+        
+        .download-section {
+            display: none;
+        }
+        
+        .download-section.active {
+            display: block;
+        }
+        
+        .download-option {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .download-option.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .download-option:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+        }
+        
+        body.light-theme .download-option:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-option .option-info h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .download-option .option-info p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .download-option .btn {
+            min-width: 180px;
+        }
+        
+        .good-to-know {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+        
+        .good-to-know h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .good-to-know p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .good-to-know a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+        
+        .good-to-know a:hover {
+            text-decoration: underline;
+        }
+        
+        .security-section {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .security-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .security-section h2 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .security-section h2 i {
+            color: var(--accent-purple);
+        }
+        
+        .security-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+        
+        .changelog-section {
+            margin-top: 32px;
+            padding: 24px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease 0.2s;
+        }
+        
+        .changelog-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .changelog-section h2 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .changelog-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        
+        .changelog-section .btn {
+            margin-top: 16px;
+            display: inline-flex;
+        }
+        
+        body.light-theme .good-to-know {
+            background: rgba(168, 85, 247, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-container">
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+    </div>
+    <div class="custom-scrollbar">
+        <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/Logo.png" alt="MCmadeEasy" class="logo-img">
+                <span>MCmadeEasy</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#screenshots">Screenshots</a></li>
+                <li><a href="download.html" class="nav-cta">Download</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="download-page">
+        <div class="download-header">
+            <h1>Download MCmadeEasy</h1>
+            <p class="subtitle">Safe. Cross platform.</p>
+        </div>
+        
+        <div class="version-info">
+            <div class="current">
+                <span class="badge">Latest</span>
+                <span class="version-text">Version <strong>1.0.0</strong> • 2026.03.14</span>
+            </div>
+            <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" target="_blank" class="btn btn-secondary">
+                <i class="fab fa-github"></i>
+                View All Releases
+            </a>
+        </div>
+        
+        <div class="os-tabs">
+            <button class="os-tab active" data-os="windows">
+                <i class="fab fa-windows"></i> Windows
+            </button>
+            <button class="os-tab" data-os="macos">
+                <i class="fab fa-apple"></i> macOS
+            </button>
+            <button class="os-tab" data-os="linux">
+                <i class="fab fa-linux"></i> Linux
+            </button>
+        </div>
+        
+        <!-- Windows -->
+        <div class="download-section active" id="windows">
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>Installer</h3>
+                    <p>.exe • Recommended for most users</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>Portable</h3>
+                    <p>.exe • No installation required</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="good-to-know">
+                <h4><i class="fas fa-info-circle"></i> Good to know</h4>
+                <p>If you get a warning that the app cannot be opened, click 'run anyways'. This warning is entirely harmless and only shows because the app is not signed. Signing it would cost us upwards of $400/year.</p>
+            </div>
+        </div>
+        
+        <!-- macOS -->
+        <div class="download-section" id="macos">
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>DMG Installer</h3>
+                    <p>.dmg • For Intel & Apple Silicon</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>JAR File</h3>
+                    <p>.jar • Requires Java 21+</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="good-to-know">
+                <h4><i class="fas fa-info-circle"></i> Good to know</h4>
+                <p>MCmadeEasy currently requires Java 21 to work properly. We recommend using <a href="https://adoptium.net/" target="_blank">Temurin™ Java 21 LTS</a>. Make sure to enable "Add to PATH" during installation.</p>
+            </div>
+        </div>
+        
+        <!-- Linux -->
+        <div class="download-section" id="linux">
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>AppImage</h3>
+                    <p>.AppImage • Universal Linux</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>DEB Package</h3>
+                    <p>.deb • Debian, Ubuntu</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="download-option">
+                <div class="option-info">
+                    <h3>RPM Package</h3>
+                    <p>.rpm • Fedora, RHEL</p>
+                </div>
+                <a href="https://github.com/RKStudios-hub/MCmadeEasy/releases" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-download"></i>
+                    Download
+                </a>
+            </div>
+            
+            <div class="good-to-know">
+                <h4><i class="fas fa-info-circle"></i> Good to know</h4>
+                <p>For AppImage, make it executable with: <code>chmod +x MCmadeEasy.AppImage</code>. MCmadeEasy requires Java 21+ to work. <a href="https://adoptium.net/" target="_blank">Get Temurin™ Java 21</a>.</p>
+            </div>
+        </div>
+        
+        <div class="security-section">
+            <h2><i class="fas fa-shield-alt"></i> Safety of our launcher</h2>
+            <p>We are aware that the security of our users' computers and data is of utmost importance. Therefore, we can assure you that using MCmadeEasy poses no threat. Previous false alarms have largely been resolved by reaching out to antivirus companies, which have re-scanned our files and affirmed our safety. However, it's important to note that occasional false positives may still occur, as antivirus programs can sometimes misinterpret the behavior of our software. These instances are usually rectified within a week.</p>
+        </div>
+        
+        <div class="changelog-section">
+            <h2>What's new in 1.0</h2>
+            <p>MCmadeEasy 1.0 brings the ultimate Minecraft server management experience. This release includes AI-powered server configuration, real-time console, automatic backups, and a modern intuitive interface built with Electron.</p>
+            <a href="#" class="btn btn-secondary">
+                <i class="fas fa-book"></i>
+                Read Changelog
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // OS Tabs
+        const tabs = document.querySelectorAll('.os-tab');
+        const sections = document.querySelectorAll('.download-section');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const os = tab.dataset.os;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === os) {
+                        section.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Scroll animations
+        const downloadOptions = document.querySelectorAll('.download-option');
+        const securitySection = document.querySelector('.security-section');
+        const changelogSection = document.querySelector('.changelog-section');
+        
+        function animateOnScroll() {
+            const triggerPoint = window.innerHeight * 0.9;
+            
+            downloadOptions.forEach((option, index) => {
+                const rect = option.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    setTimeout(() => {
+                        option.classList.add('visible');
+                    }, index * 150);
+                }
+            });
+            
+            if (securitySection) {
+                const rect = securitySection.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    securitySection.classList.add('visible');
+                }
+            }
+            
+            if (changelogSection) {
+                const rect = changelogSection.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    changelogSection.classList.add('visible');
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll();
+        
+        // Theme toggle from main script
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const icon = themeToggle.querySelector('i');
+                if (document.body.classList.contains('light-theme')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            // Check saved theme
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-theme');
+                themeToggle.querySelector('i').classList.remove('fa-moon');
+                themeToggle.querySelector('i').classList.add('fa-sun');
+            }
+        }
+        
+        // Custom scrollbar
+        function updateScrollbar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            
+            if (docHeight > 0) {
+                scrollPercent = scrollTop / docHeight;
+            }
+            
+            const minHeight = 40;
+            const maxHeight = 180;
+            const thumbHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
+            
+            const trackHeight = window.innerHeight - thumbHeight;
+            const thumbTop = scrollPercent * trackHeight;
+            
+            const thumb = document.querySelector('.scrollbar-thumb');
+            if (thumb) {
+                thumb.style.height = thumbHeight + 'px';
+                thumb.style.top = thumbTop + 'px';
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('load', updateScrollbar);
+    </script>
+</body>
+</html>

@@ -460,6 +460,20 @@ body.light-theme .hero {
     box-shadow: none;
 }
 
+body.light-theme .hero-image {
+    box-shadow: none;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .hero-visual::before {
+    display: none;
+}
+
+body.light-theme .hero-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;

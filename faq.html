@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — MCmadeEasy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .faq-page {
+            min-height: 100vh;
+            padding: 140px 24px 80px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .faq-header h1 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .faq-header .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+        
+        .faq-search {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+        
+        .faq-search input {
+            width: 100%;
+            padding: 16px 20px;
+            padding-left: 48px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-search input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+        
+        .faq-search input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .faq-search-wrapper {
+            position: relative;
+        }
+        
+        .faq-search-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        
+        .faq-category {
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .faq-category.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-category h2 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .faq-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-body);
+        }
+        
+        .faq-question:hover {
+            color: var(--accent-purple);
+        }
+        
+        .faq-question i {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-answer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+        
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+        
+        .faq-answer code {
+            background: rgba(168, 85, 247, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .faq-contact {
+            text-align: center;
+            margin-top: 48px;
+            padding: 32px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease 0.3s;
+        }
+        
+        .faq-contact.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-contact h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .faq-contact p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            display: none;
+        }
+        
+        .no-results.visible {
+            display: block;
+        }
+        
+        body.light-theme .faq-answer code {
+            background: rgba(168, 85, 247, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-container">
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+        <div class="glow-orb"></div>
+    </div>
+    <div class="custom-scrollbar">
+        <div class="scrollbar-track">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/Logo.png" alt="MCmadeEasy" class="logo-img">
+                <span>MCmadeEasy</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#screenshots">Screenshots</a></li>
+                <li><a href="download.html" class="nav-cta">Download</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="faq-page">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p class="subtitle">Find answers to common questions about MCmadeEasy</p>
+        </div>
+        
+        <div class="faq-search">
+            <div class="faq-search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="faqSearch" placeholder="Search for answers...">
+            </div>
+        </div>
+        
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search" style="font-size: 32px; margin-bottom: 16px;"></i>
+            <p>No results found. Try a different search term.</p>
+        </div>
+        
+        <!-- Getting Started -->
+        <div class="faq-category" data-category="getting-started">
+            <h2>Getting Started</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    What is MCmadeEasy?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        MCmadeEasy is a modern Minecraft server management client that allows you to easily launch, configure, and manage your Minecraft servers. It features an intuitive GUI, AI-powered configuration, real-time console, automatic backups, and supports multiple server types.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I download and install MCmadeEasy?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Visit our <a href="download.html">download page</a> and select your platform (Windows, macOS, or Linux). Download the installer or portable version, then run the executable. For Windows, you may need to click "Run anyway" if you get a security warning - this is harmless as the app is not code-signed.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    What are the system requirements?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        MCmadeEasy requires:
+                        <br>• <strong>OS:</strong> Windows 10+, macOS 10.15+, or Linux
+                        <br>• <strong>RAM:</strong> 4GB minimum, 8GB recommended
+                        <br>• <strong>Storage:</strong> 500MB for installation
+                        <br>• <strong>Java:</strong> Version 21 or higher (included in installer for Windows)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Configuration -->
+        <div class="faq-category" data-category="configuration">
+            <h2>Configuration</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I create a new Minecraft server?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Click the "+" button in the dashboard, select your server type (Spigot, Paper, Fabric, or Vanilla), choose the Minecraft version, and configure the server settings. You can use the AI configuration feature to automatically optimize settings based on your intended player count and mods.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Does MCmadeEasy support modded servers?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! MCmadeEasy supports Fabric and Forge modloaders. When creating a server, select "Fabric" or "Forge" as the server type, then add your preferred mods. The AI configuration can help optimize server settings for modded gameplay.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I configure server properties?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Select your server from the dashboard, then click "Server Settings". Here you can modify server.properties, spigot.yml, paper.yml, and other configuration files through an intuitive interface. Changes require a server restart to take effect.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Troubleshooting -->
+        <div class="faq-category" data-category="troubleshooting">
+            <h2>Troubleshooting</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    The server won't start. What should I do?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        First, check the console for error messages. Common solutions include:
+                        <br>• Ensure Java 21 is installed and selected in settings
+                        <br>• Check if the port (default 25565) is already in use
+                        <br>• Verify server RAM allocation is not exceeding available memory
+                        <br>• Check if server files are corrupted - try reinstalling the server
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    I'm getting a "Java not found" error
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        MCmadeEasy requires Java 21. Download and install <a href="https://adoptium.net/" target="_blank">Temurin Java 21 LTS</a>. After installation, go to Settings > Java and select the path to your Java installation (usually <code>C:\Program Files\Eclipse Adoptium\jdk-21</code> on Windows).
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Antivirus is blocking MCmadeEasy
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Some antivirus programs may flag MCmadeEasy as a false positive. This is harmless and happens because the app is not code-signed (which costs $400+/year). Add MCmadeEasy to your antivirus exceptions or click "Run anyway" when prompted. We actively work with antivirus companies to resolve these issues.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    How do I report a bug?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Visit our <a href="https://github.com/RKStudios-hub/MCmadeEasy/issues" target="_blank">GitHub Issues page</a> and create a new issue. Include details like your operating system, MCmadeEasy version, steps to reproduce, and any error messages. For urgent issues, join our Discord server.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Account & Billing -->
+        <div class="faq-category" data-category="account">
+            <h2>Account & Billing</h2>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is MCmadeEasy free?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! MCmadeEasy is completely free and open-source. You can download, use, and modify it at no cost. We believe in making server management accessible to everyone. If you'd like to support development, consider starring our GitHub repo or joining our Discord.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
+                    Is my data secure?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutely. MCmadeEasy stores all data locally on your machine. We do not collect or transmit any personal information. Your server configurations and settings remain private on your device.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-contact">
+            <h3>Still have questions?</h3>
+            <p>Can't find what you're looking for? We're here to help.</p>
+            <a href="https://discord.gg/" class="btn btn-primary" target="_blank">
+                <i class="fab fa-discord"></i>
+                Join Discord
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const wasActive = item.classList.contains('active');
+                
+                // Close all items
+                faqItems.forEach(i => i.classList.remove('active'));
+                
+                // Toggle clicked item
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('faqSearch');
+        const categories = document.querySelectorAll('.faq-category');
+        const noResults = document.getElementById('noResults');
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            let hasResults = false;
+            
+            categories.forEach(category => {
+                const items = category.querySelectorAll('.faq-item');
+                let categoryHasResults = false;
+                
+                items.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+                    
+                    if (question.includes(query) || answer.includes(query)) {
+                        item.style.display = 'block';
+                        categoryHasResults = true;
+                        hasResults = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                category.style.display = categoryHasResults ? 'block' : 'none';
+            });
+            
+            noResults.classList.toggle('visible', !hasResults && query.length > 0);
+        });
+        
+        // Scroll animations
+        const faqCategories = document.querySelectorAll('.faq-category');
+        const faqContact = document.querySelector('.faq-contact');
+        const faqItemsAll = document.querySelectorAll('.faq-item');
+        
+        function animateOnScroll() {
+            const triggerPoint = window.innerHeight * 0.9;
+            
+            faqCategories.forEach((category, index) => {
+                const rect = category.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    setTimeout(() => {
+                        category.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+            
+            faqItemsAll.forEach((item, index) => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    setTimeout(() => {
+                        item.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+            
+            if (faqContact) {
+                const rect = faqContact.getBoundingClientRect();
+                if (rect.top < triggerPoint) {
+                    faqContact.classList.add('visible');
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll();
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-theme');
+                const icon = themeToggle.querySelector('i');
+                if (document.body.classList.contains('light-theme')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-theme');
+                themeToggle.querySelector('i').classList.remove('fa-moon');
+                themeToggle.querySelector('i').classList.add('fa-sun');
+            }
+        }
+        
+        // Custom scrollbar
+        function updateScrollbar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            let scrollPercent = 0;
+            
+            if (docHeight > 0) {
+                scrollPercent = scrollTop / docHeight;
+            }
+            
+            const minHeight = 40;
+            const maxHeight = 180;
+            const thumbHeight = minHeight + (maxHeight - minHeight) * scrollPercent;
+            
+            const trackHeight = window.innerHeight - thumbHeight;
+            const thumbTop = scrollPercent * trackHeight;
+            
+            const thumb = document.querySelector('.scrollbar-thumb');
+            if (thumb) {
+                thumb.style.height = thumbHeight + 'px';
+                thumb.style.top = thumbTop + 'px';
+            }
+        }
+        
+        window.addEventListener('scroll', updateScrollbar);
+        window.addEventListener('load', updateScrollbar);
+    </script>
+</body>
+</html>
